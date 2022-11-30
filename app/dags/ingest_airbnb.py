@@ -103,7 +103,6 @@ with DAG(
                 sale_date date NULL
             );
         """)
-
         truncate_table = PostgresOperator(task_id="truncate_airbnb_table", postgres_conn_id='aize_db', sql="""
             TRUNCATE TABLE public.property_sales_ny;
         """)
@@ -112,62 +111,64 @@ with DAG(
             COPY public.property_sales_ny FROM STDIN WITH (FORMAT CSV, DELIMITER ',',  HEADER true)
             """,
             "Property_sales_data_New_York.csv"
-        ])
-        
-        transform_land_square_feet = PostgresOperator(
-            task_id='transform_land_square_feet',
-            postgres_conn_id='aize_db',
-            sql="""
-                UPDATE public.property_sales_ny
-                SET land_square_feet = NULL
-                WHERE land_square_feet = ' -  ';
-                
-                ALTER TABLE public.property_sales_ny ALTER COLUMN land_square_feet TYPE integer USING land_square_feet::integer;
-            """
-        )
-        transform_gross_square_feet = PostgresOperator(
-            task_id='transform_gross_square_feet',
-            postgres_conn_id='aize_db',
-            sql="""
-                UPDATE public.property_sales_ny
-                SET gross_square_feet = NULL
-                WHERE gross_square_feet = ' -  ';
-                
-                ALTER TABLE public.property_sales_ny ALTER COLUMN gross_square_feet TYPE integer USING gross_square_feet::integer;
-            """
-        )
-        transform_sale_price = PostgresOperator(
-            task_id='transform_sale_price',
-            postgres_conn_id='aize_db',
-            sql="""
-                UPDATE public.property_sales_ny
-                SET sale_price = NULL
-                WHERE sale_price = ' -  ';
-                
-                ALTER TABLE public.property_sales_ny ALTER COLUMN sale_price TYPE int8 USING sale_price::int8;
-            """
-        )
+        ])        
 
-        fill_in_neighborhood_group = PostgresOperator(
-            task_id='fill_in_neighborhood_group',
-            postgres_conn_id='aize_db',
-            sql="""
-                ALTER TABLE property_sales_ny ADD neighborhood_group varchar(255) NULL;
-                UPDATE public.property_sales_ny
-                SET neighborhood_group = (
-                    CASE
-                        WHEN borough = 1 THEN 'Manhattan'
-                        WHEN borough = 2 THEN 'Bronx'
-                        WHEN borough = 3 THEN 'Brooklyn'
-                        WHEN borough = 4 THEN 'Queens'
-                        WHEN borough = 5 THEN 'Staten Island'
-                    END
-                )
-                WHERE neighborhood_group is NULL;
-            """
-        )
+        with TaskGroup(group_id="transformations") as transformations:
+            transform_land_square_feet = PostgresOperator(
+                task_id='transform_land_square_feet',
+                postgres_conn_id='aize_db',
+                sql="""
+                    UPDATE public.property_sales_ny
+                    SET land_square_feet = NULL
+                    WHERE land_square_feet = ' -  ';
+                    
+                    ALTER TABLE public.property_sales_ny ALTER COLUMN land_square_feet TYPE integer USING land_square_feet::integer;
+                """
+            )
+            transform_gross_square_feet = PostgresOperator(
+                task_id='transform_gross_square_feet',
+                postgres_conn_id='aize_db',
+                sql="""
+                    UPDATE public.property_sales_ny
+                    SET gross_square_feet = NULL
+                    WHERE gross_square_feet = ' -  ';
+                    
+                    ALTER TABLE public.property_sales_ny ALTER COLUMN gross_square_feet TYPE integer USING gross_square_feet::integer;
+                """
+            )
+            transform_sale_price = PostgresOperator(
+                task_id='transform_sale_price',
+                postgres_conn_id='aize_db',
+                sql="""
+                    UPDATE public.property_sales_ny
+                    SET sale_price = NULL
+                    WHERE sale_price = ' -  ';
+                    
+                    ALTER TABLE public.property_sales_ny ALTER COLUMN sale_price TYPE int8 USING sale_price::int8;
+                """
+            )
+            fill_in_neighborhood_group = PostgresOperator(
+                task_id='fill_in_neighborhood_group',
+                postgres_conn_id='aize_db',
+                sql="""
+                    ALTER TABLE property_sales_ny ADD neighborhood_group varchar(255) NULL;
+                    UPDATE public.property_sales_ny
+                    SET neighborhood_group = (
+                        CASE
+                            WHEN borough = 1 THEN 'Manhattan'
+                            WHEN borough = 2 THEN 'Bronx'
+                            WHEN borough = 3 THEN 'Brooklyn'
+                            WHEN borough = 4 THEN 'Queens'
+                            WHEN borough = 5 THEN 'Staten Island'
+                        END
+                    )
+                    WHERE neighborhood_group is NULL;
+                """
+            )
 
-        create_property_sales_table >> truncate_table >> ingest_property_data >> transform_land_square_feet >> transform_gross_square_feet >> transform_sale_price
+            transform_land_square_feet >> transform_gross_square_feet >> transform_sale_price >> fill_in_neighborhood_group
+
+        create_property_sales_table >> truncate_table >> ingest_property_data >> transformations
 
     with TaskGroup(group_id='weather') as weather:
         create_weather_table = PostgresOperator(
