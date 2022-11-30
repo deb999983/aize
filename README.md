@@ -30,3 +30,27 @@ To see the dashboards you need to import the file  **reports/dashboard.json**, u
 <img width="1698" alt="Screenshot 2022-11-30 at 03 45 11" src="https://user-images.githubusercontent.com/9046803/204703808-5cd9663b-8e98-4d8a-a1d2-7453193742a9.png">
 
 
+### Some findings
+
+#### Most Common Price Range
+<img width="1263" alt="Screenshot 2022-11-30 at 04 43 55" src="https://user-images.githubusercontent.com/9046803/204703980-7f18a4d9-9241-44bd-83f3-0c6023f7aa79.png">
+
+#### Most expensive neighbourhoods with their property counts
+<img width="1273" alt="Screenshot 2022-11-30 at 04 57 21" src="https://user-images.githubusercontent.com/9046803/204704194-85d25254-610e-46f9-9e6d-0b6b42c56e5e.png">
+
+#### Top neighbourhoods by PropertyCount, with Avg prices
+<img width="1264" alt="Screenshot 2022-11-30 at 04 59 06" src="https://user-images.githubusercontent.com/9046803/204704457-1ae650a7-037e-4dee-aa18-faa2381a1cd7.png">
+
+#### Expensive categories
+<img width="1267" alt="Screenshot 2022-11-30 at 05 00 53" src="https://user-images.githubusercontent.com/9046803/204704594-c33c66a5-3ce0-4f9d-82d7-1fa4ba5be5e5.png">
+
+#### Popular categories by sales
+<img width="1262" alt="Screenshot 2022-11-30 at 05 01 33" src="https://user-images.githubusercontent.com/9046803/204704678-b034663c-f095-4e5b-ae8c-abc83c11f4e0.png">
+
+#### Week on week sales to temp percentage comparision
+<img width="1271" alt="Screenshot 2022-11-30 at 05 02 25" src="https://user-images.githubusercontent.com/9046803/204704784-0b73e37a-d19b-4440-ae6a-ed458eceadc3.png">
+
+#### Sales vs Temp by week
+<img width="1265" alt="Screenshot 2022-11-30 at 05 03 29" src="https://user-images.githubusercontent.com/9046803/204704901-2d68ce5e-c595-44d6-bd6f-dd5e9fa837fe.png">
+
+
