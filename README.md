@@ -17,8 +17,12 @@ To setup the project in your local machine please follow the below steps.
    - **airflow**: For managing internal airflow data
    - **airbnb**: Used to store the results of ingestion.
    - **URL**: localhost:5436
+   - **username**: deb
+   - **password**: postgres
  - **airflow_airbnb**: Airflow webserver
    - **URL**: http://localhost:8080
+   - **username**: airflow
+   - **password**: airflow
  - **grafana**: Grafana webserver
    - **URL**: http://localhost:3001
 
