@@ -60,5 +60,18 @@ To see the dashboards you need to import the file  **reports/dashboard.json**, u
 <img width="1270" alt="Screenshot 2022-11-30 at 05 18 47" src="https://user-images.githubusercontent.com/9046803/204706549-2d4319e9-76d6-4488-b4a3-514ecc75ed5c.png">
 
 
+### Strategy to purchase an an apartment for Airbnb in NewYork area.
+I have followed a simple strategy, that will help me decide in which area to purchase an apartment. It takes into account the following factors
+- Min earnings per year
+- Avg propery price in that area
+- Visitors per property in that area, (basically how frequently each property will be visited.)
+- Investment Recovery period, i.e calculated by **property_price**/**min_earnings_per_year**. The lower the value the better.
+- Availabillty, I think lower value will lead to less maintenance costs.
+
+I have considered only neighbourhood groups for the sake of simplicity,
+
+<img width="1088" alt="Screenshot 2022-11-30 at 05 28 49" src="https://user-images.githubusercontent.com/9046803/204707728-819dd2ca-24b6-4944-8830-061e42ddadce.png">
+
+If we look at the results of the above table, then it appears that, purchasing an apartment in **Staten Island** will be a better investment, but there are very few apartments listed on Airbnb for that neighbourhood group. So I would probably choose **Brooklyn**, because it has the 2nd highest properties listed on Airbnb, so there would be a wider range of apartments available, and it also has a decent **visits_per_property**, ensuring I will have visitors frequently, it has the lowest availability ensuring less maintenance costs.
 
 
