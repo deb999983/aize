@@ -9,35 +9,34 @@ valid_sales as (
 	and land_square_feet is not null and land_square_feet > 0
 ),
 property_sales_summary as (
-	select neighborhood, count(*) as sold_property_count, round((sum(sale_price) / count(*))) as avg_property_price
+	select neighborhood_group, count(*) as sold_property_count, round((sum(sale_price) / count(*))) as avg_property_price
 	from valid_sales
-	group by neighborhood
+	group by neighborhood_group
 ),
 airbnb_base as (
 	select *, (price * minimum_nights * number_of_reviews) as min_earnings  from airbnb_data_ny adn 
 ),
 airbnb_summary as (
-	select neighbourhood,
+	select neighbourhood_group,
 		   count(*) as ab_property_count, 
-		   round(avg(price)) as avg_price_per_night, 
+		   avg(price) as avg_price_per_night, 
 		   (sum(number_of_reviews) / count(*)) as visits_per_property,
 		   (sum(min_earnings) / count(*)) as min_earnings_per_property,
 		   ((sum(min_earnings) / count(*)) / 12) as min_earnings_per_property_per_month,
-		   round(avg(availability_365)) as avg_availability	   
+		   avg(availability_365) as avg_availability	   
 		   from airbnb_base
-	group by neighbourhood
+	group by neighbourhood_group
 	order by visits_per_property desc
 )
-select ps.neighborhood, 
+select ps.neighborhood_group, 
 	   ab_s.ab_property_count,
-	   ps.sold_property_count,
-	   ps.avg_property_price,	   
-	   ab_s.min_earnings_per_property,
-	   ab_s.min_earnings_per_property_per_month,
-       round((ps.avg_property_price / ab_s.min_earnings_per_property)) as recovery_period,		
 	   ab_s.avg_price_per_night,
 	   ab_s.visits_per_property,
-	   ab_s.avg_availability
+	   ab_s.min_earnings_per_property,
+	   ab_s.min_earnings_per_property_per_month,
+	   ab_s.avg_availability,
+	   ps.sold_property_count,
+	   ps.avg_property_price,	   
+	  (ps.avg_property_price / ab_s.min_earnings_per_property) as recovery_period 
 from airbnb_summary ab_s join property_sales_summary ps 
-on lower(ps.neighborhood) = lower(ab_s.neighbourhood)
-where ab_s.min_earnings_per_property > 0;
+on ps.neighborhood_group = ab_s.neighbourhood_group;
