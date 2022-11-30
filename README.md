@@ -53,4 +53,12 @@ To see the dashboards you need to import the file  **reports/dashboard.json**, u
 #### Sales vs Temp by week
 <img width="1265" alt="Screenshot 2022-11-30 at 05 03 29" src="https://user-images.githubusercontent.com/9046803/204704901-2d68ce5e-c595-44d6-bd6f-dd5e9fa837fe.png">
 
+#### Expensive neighbourhoods by property price
+<img width="1264" alt="Screenshot 2022-11-30 at 05 11 55" src="https://user-images.githubusercontent.com/9046803/204705883-0df2ecc2-582b-484a-a0ea-fbdcba818bb4.png">
+
+#### Neighbourhoods with max visits per property
+<img width="1270" alt="Screenshot 2022-11-30 at 05 18 47" src="https://user-images.githubusercontent.com/9046803/204706549-2d4319e9-76d6-4488-b4a3-514ecc75ed5c.png">
+
+
+
 
