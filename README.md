@@ -22,6 +22,8 @@ To setup the project in your local machine please follow the below steps.
  - **grafana**: Grafana webserver
    - **URL**: http://localhost:3001
 
+- After setting up the project, go to http://localhost:8080/dags/ingest_to_postgres/grid, to trigger the **ingest_to_postgres**, to ingest and load data into the database from csv files.
+
 To see the dashboards you need to import the file  **reports/dashboard.json**, using the following instructions (https://grafana.com/docs/grafana/v9.0/dashboards/export-import/).
 
 
