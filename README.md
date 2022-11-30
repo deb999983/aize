@@ -32,8 +32,8 @@ To see the dashboards you need to import the file  **reports/dashboard.json**, u
 
 
 #### Ingest to Postgres DAG:
-
 <img width="1698" alt="Screenshot 2022-11-30 at 03 45 11" src="https://user-images.githubusercontent.com/9046803/204703808-5cd9663b-8e98-4d8a-a1d2-7453193742a9.png">
+<img width="1702" alt="Screenshot 2022-11-30 at 06 26 06" src="https://user-images.githubusercontent.com/9046803/204714793-b4359a3a-02f8-4801-bb5b-fcfff8637b6b.png">
 
 
 ### Some findings
