@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+
+  airbnb_db:
+    image: airbnb_db
+    build:
+      context: airbnb_db
+    container_name: airbnb_db
+    restart: always
+    ports:
+      - 5436:5432
+    volumes:
+      - airbnb_data:/var/lib/postgresql/data
+
+  airflow_airbnb:
+    image: airflow_airbnb
+    build:
+      context: .
+    container_name: airflow_airbnb_server
+    depends_on:
+      - airbnb_db
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+  
+  grafana:
+    image: grafana/grafana-oss
+    ports:
+      - 3001:3000
+    volumes:
+      - airbnb-grafana-storage:/var/lib/grafana  
+
+volumes:
+  airbnb_data:
+  airflow_data: 
+  airbnb-grafana-storage:

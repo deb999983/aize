@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug_file",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+            },            
+        },
+        {
+            "name": "debug_dag",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/airflow/.local/bin/airflow",
+            "console": "integratedTerminal",
+            "preLaunchTask": "import-airflow-variables",
+            "justMyCode": false,
+            "env": {
+                "AIRFLOW_HOME": "${workspaceFolder}/airflow/.airflow",
+                "DATA_FOLDER": "${workspaceFolder}/airflow/.airflow/data",
+                "AIRFLOW__CORE__LOAD_EXAMPLES": "False",
+                "AIRFLOW__CORE__EXECUTOR": "DebugExecutor",
+                "AIRFLOW__CORE__DAGS_FOLDER": "${workspaceFolder}/app/dags",
+                "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN": "postgresql+psycopg2://deb:postgres@airbnb_db:5432/deb",
+                "AIRFLOW__WEBSERVER__WEB_SERVER_NAME": "localhost",
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": [
+                "dags",
+                "test",
+                "ingest_to_postgres",
+                "2022-11-05"
+            ]
+        }
+    ]
+}

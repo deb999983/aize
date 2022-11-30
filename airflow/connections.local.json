@@ -1,0 +1,12 @@
+{
+  "aize_db": {
+    "conn_type": "postgres",
+    "description": "",
+    "login": "deb",
+    "password": "postgres",
+    "host": "airbnb_db",
+    "port": 5432,
+    "schema": "airbnb",
+    "extra": ""
+  }
+}

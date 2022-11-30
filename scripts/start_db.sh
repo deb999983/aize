@@ -1,0 +1,1 @@
+docker-compose up airbnb_db -d
