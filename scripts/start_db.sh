@@ -1,1 +1,1 @@
-docker-compose up airbnb_db -d
+docker-compose up airbnb_db grafana -d
